@@ -21,25 +21,6 @@ class Utils(context: Context) : ViewModel() {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
     }
 
-    fun calculateBMI() {
-        val weightStr = weightEditText.text.toString()
-        val heightStr = heightEditText.text.toString()
-
-        if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
-            val weight = weightStr.toDouble()
-            val height = heightStr.toDouble()
-            val bmi = calculateBMIValue(weight, height)
-            val category = determineBMICategory(bmi)
-
-            bmiTextView.text = String.format("BMI: %.2f ($category)")
-
-            val editor = sharedPreferences.edit()
-            editor.putString(WEIGHT_KEY, weightStr)
-            editor.putString(HEIGHT_KEY, heightStr)
-            editor.apply()
-        }
-    }
-
     private fun calculateBMIValue(weight: Double, height: Double): Double {
         return weight / sqrt(height)
     }
@@ -59,6 +40,24 @@ class Utils(context: Context) : ViewModel() {
         }
 
         return category
+    }
+    fun calculateBMI() {
+        val weightStr = weightEditText.text.toString()
+        val heightStr = heightEditText.text.toString()
+
+        if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
+            val weight = weightStr.toDouble()
+            val height = heightStr.toDouble()
+            val bmi = calculateBMIValue(weight, height)
+            val category = determineBMICategory(bmi)
+
+            bmiTextView.text = String.format("BMI: %.2f ", bmi)
+
+//            val editor = sharedPreferences.edit()
+//            editor.putString(WEIGHT_KEY, weightStr)
+//            editor.putString(HEIGHT_KEY, heightStr)
+//            editor.apply()
+        }
     }
 
     fun saveBMIHistory(weight: String, height: String) {
