@@ -4,15 +4,23 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import kotlin.math.sqrt
+import androidx.activity.viewModels
 
-class Utils(context: Context) : ViewModel() {
 
-    private lateinit var weightEditText: EditText
-    private lateinit var heightEditText: EditText
-    private lateinit var bmiTextView: TextView
-    private lateinit var sharedPreferences: SharedPreferences
+class BMIViewModel(context: Context) : ViewModel() {
+
+    data class DiceUiState(
+        val firstDieValue: Int? = null,
+        val secondDieValue: Int? = null,
+        val numberOfRolls: Int = 0,
+    )
+    lateinit var weightEditText: EditText
+    lateinit var heightEditText: EditText
+    lateinit var bmiTextView: TextView
+    lateinit var sharedPreferences: SharedPreferences
     private val SHARED_PREF_NAME = "BMI_HISTORY"
     private val WEIGHT_KEY = "weight"
     private val HEIGHT_KEY = "height"
@@ -57,6 +65,7 @@ class Utils(context: Context) : ViewModel() {
 //            editor.putString(WEIGHT_KEY, weightStr)
 //            editor.putString(HEIGHT_KEY, heightStr)
 //            editor.apply()
+
         }
     }
 
@@ -74,4 +83,6 @@ class Utils(context: Context) : ViewModel() {
     fun getHeightFromHistory(): String {
         return sharedPreferences.getString(HEIGHT_KEY, "") ?: ""
     }
+
+
 }
