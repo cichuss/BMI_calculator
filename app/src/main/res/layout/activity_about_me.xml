@@ -24,7 +24,7 @@
         android:layout_width="331dp"
         android:layout_height="170dp"
         android:layout_marginTop="76dp"
-        android:text="She was born November 13th 2002 and raised in Białystok. Somehow ended up at Wroclaw University of Science and Technology. And is now crying over this app. Choices. Anyways those are her dogs"
+        android:text="She was born and raised in Białystok. Somehow ended up at Wroclaw University of Science and Technology. And is now crying over this app. Choices. Anyways those are her dogs"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp"
