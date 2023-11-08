@@ -61,4 +61,5 @@ dependencies {
     testImplementation("androidx.lifecycle:lifecycle-runtime-testing:$lifecycle_version")
     implementation("androidx.activity:activity-ktx:$activity_version")
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
+    implementation("com.google.code.gson:gson:2.8.9")
 }
