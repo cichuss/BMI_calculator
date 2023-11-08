@@ -23,7 +23,7 @@ class HistoryActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         historyViewModel.loadHistoryFromSharedPreferences(this)
-        // Obserwuj historię i uaktualniaj widok przy zmianach
+
         historyViewModel.historyList.observe(this) { history ->
             adapter.submitList(history)
         }

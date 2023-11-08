@@ -1,51 +1,27 @@
 package com.example.bmi_calculator
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
-import android.widget.EditText
-import android.widget.TextView
-import androidx.activity.viewModels
+import android.graphics.Color
 import androidx.lifecycle.ViewModel
-import kotlin.math.sqrt
-import androidx.activity.viewModels
-import androidx.lifecycle.MutableLiveData
 import com.example.bmi_calculator.units.BMIMetricUnits
 import com.example.bmi_calculator.units.Units
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlin.math.sqrt
 
 data class BMIViewModelUiState(
     val bmi: Double = 0.0,
     val category: String = "",
-    val color: String = "",
+    val color: Int = Color.BLACK,
 )
-class BMIViewModel(context: Context) : ViewModel() {
+class BMIViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(BMIViewModelUiState())
     val uiState: StateFlow<BMIViewModelUiState> = _uiState.asStateFlow()
 
-    var resultColor = MutableLiveData<String>()
-    var resultBmi = MutableLiveData<Double>()
-    var resultCategory = MutableLiveData<String>()
-
     var unitSystem: Units = BMIMetricUnits()
-    @SuppressLint("StaticFieldLeak")
-    lateinit var weightEditText: EditText
-    @SuppressLint("StaticFieldLeak")
-    lateinit var heightEditText: EditText
-    @SuppressLint("StaticFieldLeak")
-    lateinit var bmiTextView: TextView
-    lateinit var sharedPreferences: SharedPreferences
-    private val SHARED_PREF_NAME = "BMI_HISTORY"
-    private val WEIGHT_KEY = "weight"
-    private val HEIGHT_KEY = "height"
 
-//    init {
-//        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-//    }
 
     private fun calculateBMIValue(weight: Double, height: Double): Double {
         return weight / sqrt(height)
@@ -67,48 +43,52 @@ class BMIViewModel(context: Context) : ViewModel() {
 
         return category
     }
-    fun calculateBMI() {
+
+    private fun determineCategoryColor(category: String): Int {
+
+        var color = Color.BLACK
+
+        color = when (category) {
+            "Underweight" -> {
+                Color.parseColor("#0168e9")
+            }
+            "Healthy weight" -> {
+                Color.parseColor("#30ff3d")
+            }
+            "Overweight" -> {
+                Color.parseColor("#ff9b65")
+            }
+            else -> {
+                Color.parseColor("#f40232")
+            }
+        }
+
+        return color
+    }
+
+    fun calculateBMI(weight: Double, height: Double) {
 
 
-        val weightStr = weightEditText.text.toString()
-        val heightStr = heightEditText.text.toString()
+//        val weightStr = weightEditText.text.toString()
+//        val heightStr = heightEditText.text.toString()
 
-        if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
-            val weight = unitSystem.convertWeight(weightStr.toDouble())
-            val height = unitSystem.convertHeight(heightStr.toDouble())
+//        if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
+            val weight = unitSystem.convertWeight(weight)
+            val height = unitSystem.convertHeight(height)
             val bmi = calculateBMIValue(weight, height)
             val category = determineBMICategory(bmi)
+            val color = determineCategoryColor(category)
 
-            bmiTextView.text = String.format("BMI: %.2f ", bmi)
-
-            _uiState.update { currentState ->
+            _uiState.update { currentState:BMIViewModelUiState ->
                 currentState.copy(
                     bmi = bmi,
                     category = category,
+                    color = color,
                 )
             }
-//            val editor = sharedPreferences.edit()
-//            editor.putString(WEIGHT_KEY, weightStr)
-//            editor.putString(HEIGHT_KEY, heightStr)
-//            editor.apply()
 
         }
     }
 
-    fun saveBMIHistory(weight: String, height: String) {
-        val editor = sharedPreferences.edit()
-        editor.putString(WEIGHT_KEY, weight)
-        editor.putString(HEIGHT_KEY, height)
-        editor.apply()
-    }
-
-    fun getWeightFromHistory(): String {
-        return sharedPreferences.getString(WEIGHT_KEY, "") ?: ""
-    }
-
-    fun getHeightFromHistory(): String {
-        return sharedPreferences.getString(HEIGHT_KEY, "") ?: ""
-    }
 
 
-}

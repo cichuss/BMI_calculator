@@ -1,12 +1,10 @@
 package com.example.bmi_calculator.viewModels
 
-import com.example.bmi_calculator.BMIViewModelUiState
+import androidx.lifecycle.ViewModel
 
-class BMIDescriptionViewModel {
+class BMIDescriptionViewModel: ViewModel() {
 
-    val category: String = BMIViewModelUiState().category
-
-    private fun descriptionOfCategory(category: String): Triple<String, String, String> {
+    fun descriptionOfCategory(category: String): Triple<String, String, String> {
 
         var definition = "ERROR"
         var characteristics = "ERROR"
@@ -36,10 +34,6 @@ class BMIDescriptionViewModel {
         }
 
         return Triple(definition, characteristics, implications)
-    }
-
-    fun assignDescription(): Triple<String, String, String> {
-        return descriptionOfCategory(category)
     }
 
 }
