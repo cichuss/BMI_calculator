@@ -31,6 +31,5 @@ class BMIDescriptionActivity : AppCompatActivity() {
         characteristicsText.text = description.second
         implicationsText.text = description.third
 
-
     }
 }

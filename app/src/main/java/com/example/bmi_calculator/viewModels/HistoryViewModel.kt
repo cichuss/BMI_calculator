@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-data class Measurement(val date: String, val weight: Float, val height: Float, val bmi: Float)
+data class Measurement(val date: String, val weight: Double, val height: Double, val bmi: String, val unitSystem: String)
 
 class HistoryViewModel : ViewModel() {
     private val PREFS_NAME = "BMI_HISTORY"
@@ -25,7 +25,7 @@ class HistoryViewModel : ViewModel() {
         _historyList.value = currentList
         saveHistoryToSharedPreferences(context)
     }
-    fun saveHistoryToSharedPreferences(context: Context) {
+    private fun saveHistoryToSharedPreferences(context: Context) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val history = historyList.value
         val historyJson = Gson().toJson(history)

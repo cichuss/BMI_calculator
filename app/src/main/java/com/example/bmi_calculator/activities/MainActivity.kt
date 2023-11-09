@@ -1,6 +1,9 @@
-package com.example.bmi_calculator
+package com.example.bmi_calculator.activities
 
+import HistoryViewModel
+import Measurement
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -13,21 +16,22 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.bmi_calculator.activities.AboutMeActivity
-import com.example.bmi_calculator.activities.BMIDescriptionActivity
-import com.example.bmi_calculator.activities.HistoryActivity
+import com.example.bmi_calculator.viewModels.BMIViewModel
+import com.example.bmi_calculator.viewModels.BMIViewModelUiState
+import com.example.bmi_calculator.R
 import com.example.bmi_calculator.units.BMIImperialUnits
 import com.example.bmi_calculator.units.BMIMetricUnits
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
-
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
+import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity() {
 
 
     private lateinit var calculateButton: Button
-    private lateinit var menuButton: NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var unitSwitch: SwitchCompat
 
@@ -42,11 +46,14 @@ class MainActivity : AppCompatActivity() {
                     var bmi = uiState.bmi
                     var category = uiState.category
                     var color = uiState.color
+                    var unitSystem = uiState.unitSystem
                 }
             }
         }
 
-        calculateButton(viewModel)
+        val historyViewModel: HistoryViewModel by viewModels()
+
+        calculateButton(viewModel, historyViewModel)
         burgerMenu()
         navigation()
         unitSwitch(viewModel)
@@ -54,13 +61,12 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-    private fun updateTextViewsWithBMIResults(uiState: BMIViewModelUiState ) {
+    private fun updateTextViewsWithBMIResults(uiState: BMIViewModelUiState) {
 
         val resultValueTextView = findViewById<TextView>(R.id.Bmi)
         val resultCategoryTextView = findViewById<TextView>(R.id.categoryText)
 
         resultValueTextView.text = String.format("BMI: %.2f ", uiState.bmi)
-//        resultValueTextView.setTextColor(uiState.color)
         resultCategoryTextView.setTextColor(uiState.color)
         resultCategoryTextView.text = uiState.category
     }
@@ -157,26 +163,53 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun calculateButton(viewModel: BMIViewModel) {
+    private fun calculateButton(viewModel: BMIViewModel, historyViewModel: HistoryViewModel) {
         calculateButton = findViewById(R.id.calculate)
         calculateButton.setOnClickListener {
             val weightEditText = findViewById<EditText>(R.id.Weight)
             val heightEditText = findViewById<EditText>(R.id.Height)
+            val noValuesError: TextView = findViewById(R.id.error)
 
-            val bmiTextView = findViewById<TextView>(R.id.Bmi)
             val weightString = weightEditText.text.toString()
             val heightString = heightEditText.text.toString()
 
             if (weightString.isNotEmpty() && heightString.isNotEmpty())  {
 
+                noValuesError.text = ""
                 val weight = weightString.toDouble()
                 val height = heightString.toDouble()
                 viewModel.calculateBMI(weight, height)
+                val bmi = viewModel.uiState.value.bmi
+                if (bmi !=null) {
+
+                    saveToHistory(
+                        weight,
+                        height,
+                        bmi,
+                        viewModel.uiState.value.unitSystem,
+                        historyViewModel
+                    )
+                }
+                updateTextViewsWithBMIResults(viewModel.uiState.value)
+
+            } else {
+                clearTextViews()
+                noValuesError.text = "Provide correct values"
+                noValuesError.setTextColor(Color.RED)
             }
 
-            updateTextViewsWithBMIResults(viewModel.uiState.value)
-
         }
+    }
+
+    private fun saveToHistory(weight: Double, height: Double, bmi: Double, unitSystem: String, historyViewModel: HistoryViewModel) {
+        val bmiFormatted = String.format("%.2f ", bmi)
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val formattedDateTime = currentDateTime.format(formatter)
+
+        val measurement = Measurement(formattedDateTime, weight, height, bmiFormatted, unitSystem)
+
+        historyViewModel.addMeasurement(measurement, this)
     }
 
     private fun clickOnCategory() {

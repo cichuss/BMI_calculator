@@ -1,3 +1,6 @@
+package com.example.bmi_calculator.historyUtils
+
+import Measurement
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -6,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bmi_calculator.R
 
-class HistoryAdapter :
+class HistoryAdapter:
     ListAdapter<Measurement, HistoryAdapter.MeasurementViewHolder>(HistoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeasurementViewHolder {
@@ -28,8 +31,8 @@ class HistoryAdapter :
 
         fun bind(measurement: Measurement) {
             dateTextView.text = "Date: ${measurement.date}"
-            weightTextView.text = "Weight: ${measurement.weight} kg"
-            heightTextView.text = "Height: ${measurement.height} m"
+            weightTextView.text = "Weight: ${measurement.weight} ${if (measurement.unitSystem == "metric") "kg" else "lb"}"
+            heightTextView.text = "Height: ${measurement.height} ${if (measurement.unitSystem == "metric") "cm" else "in"}"
             bmiTextView.text = "BMI: ${measurement.bmi}"
         }
     }

@@ -1,6 +1,6 @@
 package com.example.bmi_calculator.activities
 
-import HistoryAdapter
+import com.example.bmi_calculator.historyUtils.HistoryAdapter
 import HistoryViewModel
 import android.os.Bundle
 import androidx.activity.viewModels

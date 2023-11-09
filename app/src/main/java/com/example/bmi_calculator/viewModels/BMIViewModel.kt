@@ -1,4 +1,4 @@
-package com.example.bmi_calculator
+package com.example.bmi_calculator.viewModels
 
 import android.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -11,9 +11,10 @@ import kotlinx.coroutines.flow.update
 import kotlin.math.sqrt
 
 data class BMIViewModelUiState(
-    val bmi: Double = 0.0,
-    val category: String = "",
+    val bmi: Double? = null,
+    val category: String? = null,
     val color: Int = Color.BLACK,
+    val unitSystem: String = "metric",
 )
 class BMIViewModel : ViewModel() {
 
@@ -73,22 +74,22 @@ class BMIViewModel : ViewModel() {
 //        val heightStr = heightEditText.text.toString()
 
 //        if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
-            val weight = unitSystem.convertWeight(weight)
-            val height = unitSystem.convertHeight(height)
-            val bmi = calculateBMIValue(weight, height)
-            val category = determineBMICategory(bmi)
-            val color = determineCategoryColor(category)
+        val weight = unitSystem.convertWeight(weight)
+        val height = unitSystem.convertHeight(height)
+        val bmi = calculateBMIValue(weight, height)
+        val category = determineBMICategory(bmi)
+        val color = determineCategoryColor(category)
 
-            _uiState.update { currentState:BMIViewModelUiState ->
-                currentState.copy(
-                    bmi = bmi,
-                    category = category,
-                    color = color,
+        val unitString: String = (if (unitSystem is BMIMetricUnits) "metric" else "imperial")
+
+        _uiState.update { currentState: BMIViewModelUiState ->
+            currentState.copy(
+                bmi = bmi,
+                category = category,
+                color = color,
+                unitSystem = unitString,
                 )
-            }
-
         }
+
     }
-
-
-
+}
