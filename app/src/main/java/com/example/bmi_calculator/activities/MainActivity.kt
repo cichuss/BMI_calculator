@@ -5,6 +5,7 @@ import Measurement
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -53,11 +54,16 @@ class MainActivity : AppCompatActivity() {
 
         val historyViewModel: HistoryViewModel by viewModels()
 
+        if(viewModel.uiState.value.bmi != null) {
+            updateTextViewsWithBMIResults(viewModel.uiState.value)
+        }
         calculateButton(viewModel, historyViewModel)
         burgerMenu()
         navigation()
         unitSwitch(viewModel)
         clickOnCategory()
+
+        Log.d("check1", "${findViewById<TextView>(R.id.Bmi).text}")
 
         }
 

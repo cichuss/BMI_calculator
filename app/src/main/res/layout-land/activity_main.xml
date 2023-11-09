@@ -13,86 +13,95 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <TextView
-        android:id="@+id/categoryText"
-        android:layout_width="265dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Height"
-        app:layout_constraintVertical_bias="0.388" />
-
     <Button
         android:id="@+id/calculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="98dp"
-        android:layout_marginEnd="154dp"
-        android:layout_marginBottom="172dp"
+        android:layout_marginTop="48dp"
         android:text="calculate"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Height" />
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toEndOf="@+id/Weight"
+        app:layout_constraintTop_toBottomOf="@+id/burgerMenuButton" />
 
     <EditText
         android:id="@+id/Weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="294dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="101dp"
-        android:layout_marginBottom="19dp"
         android:ems="10"
-        android:inputType="numberDecimal"
         android:hint="Weight [kg]"
-        app:layout_constraintBottom_toTopOf="@+id/Height"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/Bmi"
+        android:layout_width="253dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="32dp"
+        android:text="BMI: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/category"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Height"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:text="Category:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/categoryText"
+        app:layout_constraintTop_toBottomOf="@+id/Height"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/categoryText"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Height"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/Height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="101dp"
-        android:layout_marginBottom="108dp"
         android:ems="10"
-        android:inputType="numberDecimal"
         android:hint="Height [cm]"
-        app:layout_constraintBottom_toTopOf="@+id/calculate"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Weight" />
-
-    <TextView
-        android:id="@+id/Bmi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bmi: "
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.091"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.621" />
 
     <Button
         android:id="@+id/burgerMenuButton"
         android:layout_width="66dp"
         android:layout_height="59dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:text="☰"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,13 +109,10 @@
         android:id="@+id/unitSwitch"
         android:layout_width="163dp"
         android:layout_height="43dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="61dp"
+        android:layout_marginTop="16dp"
         android:text="Metric Units"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/burgerMenuButton"
-        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,40 +120,28 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:text="Calculate BMI"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
-
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="99dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        android:text="Category:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/categoryText"
-        app:layout_constraintHorizontal_bias="0.849"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Bmi"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/categoryText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Height" />
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toEndOf="@+id/Height"
+        app:layout_constraintTop_toBottomOf="@+id/calculate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 <com.google.android.material.navigation.NavigationView
