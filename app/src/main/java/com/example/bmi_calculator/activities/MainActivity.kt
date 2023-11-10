@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
                     var category = uiState.category
                     var color = uiState.color
                     var unitSystem = uiState.unitSystem
+                    if(viewModel.uiState.value.bmi != null) {
+                        updateTextViewsWithBMIResults(viewModel.uiState.value)
+                    }
                 }
             }
         }
@@ -93,15 +96,15 @@ class MainActivity : AppCompatActivity() {
     private fun unitSwitch(viewModel: BMIViewModel) {
         unitSwitch = findViewById(R.id.unitSwitch)
 
-
         unitSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+            val unitSystem = viewModel.uiState.value.unitSystem
+            if (isChecked && unitSystem != "imperial") {
                 clearTextViews()
                 findViewById<EditText>(R.id.Weight).hint = "Weight [lb]"
                 findViewById<EditText>(R.id.Height).hint = "Height [in]"
                 viewModel.unitSystem = BMIImperialUnits()
                 unitSwitch.text = "Imperial Units"
-            } else {
+            } else if (!isChecked && unitSystem != "metric"){
                 clearTextViews()
                 findViewById<EditText>(R.id.Weight).hint = "Weight [kg]"
                 findViewById<EditText>(R.id.Height).hint = "Height [cm]"
