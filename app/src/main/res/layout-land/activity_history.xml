@@ -12,7 +12,7 @@
         android:layout_width="156dp"
         android:layout_height="56dp"
         android:layout_marginTop="4dp"
-        android:text="History"
+        android:text="@string/history"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"

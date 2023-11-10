@@ -26,7 +26,6 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
-import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity() {
@@ -65,9 +64,6 @@ class MainActivity : AppCompatActivity() {
         navigation()
         unitSwitch(viewModel)
         clickOnCategory()
-
-        Log.d("check1", "${findViewById<TextView>(R.id.Bmi).text}")
-
         }
 
     private fun updateTextViewsWithBMIResults(uiState: BMIViewModelUiState) {
@@ -75,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         val resultValueTextView = findViewById<TextView>(R.id.Bmi)
         val resultCategoryTextView = findViewById<TextView>(R.id.categoryText)
 
-        resultValueTextView.text = String.format("BMI: %.2f ", uiState.bmi)
+        resultValueTextView.text = String.format(getString(R.string.bmi_formatted), uiState.bmi)
         resultCategoryTextView.setTextColor(uiState.color)
         resultCategoryTextView.text = uiState.category
     }
@@ -89,8 +85,8 @@ class MainActivity : AppCompatActivity() {
 
         weightEditText.text.clear()
         heightEditText.text.clear()
-        resultBMIText.text = "BMI:"
-        resultCategoryText.text = ""
+        resultBMIText.text = getString(R.string.bmi)
+        resultCategoryText.text = getString(R.string.blank)
     }
 
     private fun unitSwitch(viewModel: BMIViewModel) {
@@ -98,18 +94,18 @@ class MainActivity : AppCompatActivity() {
 
         unitSwitch.setOnCheckedChangeListener { _, isChecked ->
             val unitSystem = viewModel.uiState.value.unitSystem
-            if (isChecked && unitSystem != "imperial") {
+            if (isChecked && unitSystem != getString(R.string.imperial)) {
                 clearTextViews()
-                findViewById<EditText>(R.id.Weight).hint = "Weight [lb]"
-                findViewById<EditText>(R.id.Height).hint = "Height [in]"
+                findViewById<EditText>(R.id.Weight).hint = getString(R.string.weight_lb)
+                findViewById<EditText>(R.id.Height).hint = getString(R.string.height_in)
                 viewModel.unitSystem = BMIImperialUnits()
-                unitSwitch.text = "Imperial Units"
-            } else if (!isChecked && unitSystem != "metric"){
+                unitSwitch.text = getString(R.string.imperial_units)
+            } else if (!isChecked && unitSystem != getString(R.string.metric)){
                 clearTextViews()
-                findViewById<EditText>(R.id.Weight).hint = "Weight [kg]"
-                findViewById<EditText>(R.id.Height).hint = "Height [cm]"
+                findViewById<EditText>(R.id.Weight).hint = getString(R.string.weight_kg)
+                findViewById<EditText>(R.id.Height).hint = getString(R.string.height_cm)
                 viewModel.unitSystem = BMIMetricUnits()
-                unitSwitch.text = "Metric Units"
+                unitSwitch.text = getString(R.string.metric_units)
             }
         }
     }
@@ -150,8 +146,8 @@ class MainActivity : AppCompatActivity() {
         val resultCategoryText = findViewById<TextView>(R.id.categoryText)
         val color = resultCategoryText.currentTextColor
 
-        description.putExtra("category", resultCategoryText.text)
-        description.putExtra("color", color)
+        description.putExtra(getString(R.string.category), resultCategoryText.text)
+        description.putExtra(getString(R.string.color), color)
         startActivity(description)
 
     }
@@ -203,7 +199,7 @@ class MainActivity : AppCompatActivity() {
 
             } else {
                 clearTextViews()
-                noValuesError.text = "Provide correct values"
+                noValuesError.text = getString(R.string.error_incorrect_values)
                 noValuesError.setTextColor(Color.RED)
             }
 
@@ -211,9 +207,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveToHistory(weight: Double, height: Double, bmi: Double, unitSystem: String, historyViewModel: HistoryViewModel) {
-        val bmiFormatted = String.format("%.2f ", bmi)
+        val bmiFormatted = String.format(getString(R.string.format), bmi)
         val currentDateTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_formatter))
         val formattedDateTime = currentDateTime.format(formatter)
 
         val measurement = Measurement(formattedDateTime, weight, height, bmiFormatted, unitSystem)
@@ -225,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         val resultCategoryText = findViewById<TextView>(R.id.categoryText)
 
         resultCategoryText.setOnClickListener {
-            if (resultCategoryText.text.toString() != "") {
+            if (resultCategoryText.text.toString() != getString(R.string.blank)) {
                 openDescription()
             }
         }

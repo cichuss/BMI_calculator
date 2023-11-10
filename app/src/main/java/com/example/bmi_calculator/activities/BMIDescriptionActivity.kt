@@ -15,8 +15,8 @@ class BMIDescriptionActivity : AppCompatActivity() {
 
 
         val category = findViewById<TextView>(R.id.categoryName)
-        val color = intent.getIntExtra("color", 0)
-        category.text = intent.getStringExtra("category")
+        val color = intent.getIntExtra(getString(R.string.color), 0)
+        category.text = intent.getStringExtra(getString(R.string.category))
 
         category.setTextColor(color)
 

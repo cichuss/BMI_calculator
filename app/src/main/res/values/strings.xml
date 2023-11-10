@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">BMI_calculator</string>
+    <string name="calculate">calculate</string>
+    <string name="weight_kg">Weight [kg]</string>
+    <string name="height_cm">Height [cm]</string>
+    <string name="bmi">Bmi:</string>
+    <string name="burger">☰</string>
+    <string name="metric_units">Metric Units</string>
+    <string name="calculate_bmi">Calculate BMI</string>
+    <string name="category_">Category:</string>
+    <string name="date">Date:</string>
+    <string name="weight">Weight:</string>
+    <string name="height">Height:</string>
+    <string name="category">Category</string>
+    <string name="healthy">Healthy</string>
+    <string name="characteristics">Characteristics</string>
+    <string name="definition">Definition</string>
+    <string name="implications">Implications</string>
+    <string name="blank" />
+    <string name="history">History</string>
+    <string name="about_me">About Me</string>
+    <string name="about_me_description">She was born and raised in Białystok. Somehow ended up at Wroclaw University of Science and Technology. And is now crying over this app. Choices. Anyways those are her dogs</string>
+    <string name="author">Magda Szeląg</string>
+    <string name="cisek">Cisek</string>
+    <string name="yuki">Yuki</string>
+    <string name="imperial_units">Imperial Units</string>
+    <string name="weight_lb">Weight [lb]</string>
+    <string name="height_in">Height [in]</string>
+    <string name="imperial">imperial</string>
+    <string name="metric">metric</string>
+    <string name="date_formatter">yyyy-MM-dd HH:mm:ss</string>
+    <string name="error_incorrect_values">Provide correct values</string>
+    <string name="bmi_formatted">"BMI: %.2f "</string>
+    <string name="color">color</string>
+    <string name="format">"%.2f "</string>
 </resources>
