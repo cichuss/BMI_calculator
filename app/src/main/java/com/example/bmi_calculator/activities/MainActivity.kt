@@ -225,8 +225,9 @@ class MainActivity : AppCompatActivity() {
         val resultCategoryText = findViewById<TextView>(R.id.categoryText)
 
         resultCategoryText.setOnClickListener {
-
-            openDescription()
+            if (resultCategoryText.text.toString() != "") {
+                openDescription()
+            }
         }
     }
 }
