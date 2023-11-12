@@ -1,7 +1,9 @@
 package com.example.bmi_calculator.viewModels
 
+import android.content.Context
 import android.graphics.Color
 import androidx.lifecycle.ViewModel
+import com.example.bmi_calculator.R
 import com.example.bmi_calculator.units.BMIMetricUnits
 import com.example.bmi_calculator.units.Units
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,35 +30,36 @@ class BMIViewModel : ViewModel() {
         return weight / sqrt(height)
     }
 
-    private fun determineBMICategory(bmi: Double): String {
+    private fun determineBMICategory(bmi: Double, context: Context): String {
 
         var category = "ERROR"
 
         category = if(bmi < 18.5) {
-            "Underweight"
+            context.getString(R.string.underweight)
         } else if(bmi in 18.5..24.9) {
-            "Healthy weight"
+            context.getString(R.string.healthy_weight)
         } else if(bmi in 25.0..29.9) {
-            "Overweight"
+            context.getString(R.string.overweight)
         } else {
-            "Obesity"
+            context.getString(R.string.obesity)
         }
 
         return category
     }
 
-    private fun determineCategoryColor(category: String): Int {
+    private fun determineCategoryColor(category: String, context: Context): Int {
 
         var color = Color.BLACK
 
         color = when (category) {
-            "Underweight" -> {
+            context.getString(R.string.underweight)
+            -> {
                 Color.parseColor("#0168e9")
             }
-            "Healthy weight" -> {
+            context.getString(R.string.healthy_weight) -> {
                 Color.parseColor("#30ff3d")
             }
-            "Overweight" -> {
+            context.getString(R.string.overweight) -> {
                 Color.parseColor("#ff9b65")
             }
             else -> {
@@ -67,7 +70,7 @@ class BMIViewModel : ViewModel() {
         return color
     }
 
-    fun calculateBMI(weight: Double, height: Double) {
+    fun calculateBMI(weight: Double, height: Double, context: Context) {
 
 
 //        val weightStr = weightEditText.text.toString()
@@ -77,10 +80,10 @@ class BMIViewModel : ViewModel() {
         val weight = unitSystem.convertWeight(weight)
         val height = unitSystem.convertHeight(height)
         val bmi = calculateBMIValue(weight, height)
-        val category = determineBMICategory(bmi)
-        val color = determineCategoryColor(category)
+        val category = determineBMICategory(bmi, context)
+        val color = determineCategoryColor(category, context)
 
-        val unitString: String = (if (unitSystem is BMIMetricUnits) "metric" else "imperial")
+        val unitString: String = (if (unitSystem is BMIMetricUnits) context.getString(R.string.metric) else context.getString(R.string.imperial))
 
         _uiState.update { currentState: BMIViewModelUiState ->
             currentState.copy(

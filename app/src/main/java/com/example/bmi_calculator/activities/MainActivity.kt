@@ -5,7 +5,6 @@ import Measurement
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,11 +16,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.bmi_calculator.viewModels.BMIViewModel
-import com.example.bmi_calculator.viewModels.BMIViewModelUiState
 import com.example.bmi_calculator.R
 import com.example.bmi_calculator.units.BMIImperialUnits
 import com.example.bmi_calculator.units.BMIMetricUnits
+import com.example.bmi_calculator.viewModels.BMIViewModel
+import com.example.bmi_calculator.viewModels.BMIViewModelUiState
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
@@ -170,6 +169,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculateButton(viewModel: BMIViewModel, historyViewModel: HistoryViewModel) {
         calculateButton = findViewById(R.id.calculate)
+
         calculateButton.setOnClickListener {
             val weightEditText = findViewById<EditText>(R.id.Weight)
             val heightEditText = findViewById<EditText>(R.id.Height)
@@ -178,31 +178,28 @@ class MainActivity : AppCompatActivity() {
             val weightString = weightEditText.text.toString()
             val heightString = heightEditText.text.toString()
 
-            if (weightString.isNotEmpty() && heightString.isNotEmpty())  {
+                try {
+                    noValuesError.text = ""
+                    val weight = weightString.toDouble()
+                    val height = heightString.toDouble()
+                    viewModel.calculateBMI(weight, height, this)
+                    val bmi = viewModel.uiState.value.bmi
+                    if (bmi != null) {
 
-                noValuesError.text = ""
-                val weight = weightString.toDouble()
-                val height = heightString.toDouble()
-                viewModel.calculateBMI(weight, height)
-                val bmi = viewModel.uiState.value.bmi
-                if (bmi !=null) {
-
-                    saveToHistory(
-                        weight,
-                        height,
-                        bmi,
-                        viewModel.uiState.value.unitSystem,
-                        historyViewModel
-                    )
+                        saveToHistory(
+                            weight,
+                            height,
+                            bmi,
+                            viewModel.uiState.value.unitSystem,
+                            historyViewModel
+                        )
+                    }
+                    updateTextViewsWithBMIResults(viewModel.uiState.value)
+                } catch (e: NumberFormatException) {
+                    clearTextViews()
+                    noValuesError.text = getString(R.string.error_incorrect_values)
+                    noValuesError.setTextColor(Color.RED)
                 }
-                updateTextViewsWithBMIResults(viewModel.uiState.value)
-
-            } else {
-                clearTextViews()
-                noValuesError.text = getString(R.string.error_incorrect_values)
-                noValuesError.setTextColor(Color.RED)
-            }
-
         }
     }
 

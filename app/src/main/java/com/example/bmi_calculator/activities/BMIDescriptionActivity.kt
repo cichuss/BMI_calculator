@@ -22,7 +22,7 @@ class BMIDescriptionActivity : AppCompatActivity() {
 
         val viewModel: BMIDescriptionViewModel by viewModels()
 
-        val description: Triple<String, String, String> = viewModel.descriptionOfCategory(category.text.toString())
+        val description: Triple<String, String, String> = viewModel.descriptionOfCategory(category.text.toString(), this)
         val definitionText = findViewById<TextView>(R.id.definitionText)
         val characteristicsText = findViewById<TextView>(R.id.characteristicsText)
         val implicationsText = findViewById<TextView>(R.id.implicationsText)
