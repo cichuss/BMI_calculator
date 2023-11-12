@@ -1,6 +1,6 @@
 package com.example.bmi_calculator.historyUtils
 
-import Measurement
+import com.example.bmi_calculator.viewModels.Measurement
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

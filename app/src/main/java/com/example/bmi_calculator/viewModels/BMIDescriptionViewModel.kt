@@ -8,9 +8,9 @@ class BMIDescriptionViewModel: ViewModel() {
 
     fun descriptionOfCategory(category: String, context: Context): Triple<String, String, String> {
 
-        var definition = context.getString(R.string.blank)
-        var characteristics = context.getString(R.string.blank)
-        var implications = context.getString(R.string.blank)
+        val definition: String
+        val characteristics: String
+        val implications: String
 
         when (category) {
             context.getString(R.string.underweight) -> {

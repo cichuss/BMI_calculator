@@ -69,7 +69,8 @@
             android:layout_marginEnd="180dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:srcCompat="@drawable/yuki" />
+            app:srcCompat="@drawable/yuki"
+            android:contentDescription="@string/yuki_dog_photo" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -81,7 +82,8 @@
             app:layout_constraintHorizontal_bias="0.876"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:srcCompat="@drawable/cisek" />
+            app:srcCompat="@drawable/cisek"
+            android:contentDescription="@string/cisek_dog_photo" />
 
         <TextView
             android:id="@+id/textView7"

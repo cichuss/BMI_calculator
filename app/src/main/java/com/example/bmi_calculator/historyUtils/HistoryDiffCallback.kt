@@ -1,6 +1,6 @@
 package com.example.bmi_calculator.historyUtils
 
-import Measurement
+import com.example.bmi_calculator.viewModels.Measurement
 import androidx.recyclerview.widget.DiffUtil
 
 class HistoryDiffCallback : DiffUtil.ItemCallback<Measurement>() {

@@ -48,4 +48,6 @@
     <string name="obesity_definition">Obesity is a severe condition characterized by a very high BMI, indicating a substantial accumulation of excess body fat. It can have serious health implications and is often the result of prolonged unhealthy lifestyle choices.\n</string>
     <string name="obesity_characteristics">Obesity is typically defined by a BMI of 30 or higher. It significantly raises the risk of life-threatening health conditions, including heart disease, stroke, certain cancers, sleep apnea, and more.\n</string>
     <string name="obesity_implications">Obesity is associated with a multitude of health problems and is considered a major public health concern. Treatment often involves comprehensive lifestyle changes, including diet, exercise, and, in some cases, medical interventions to reduce the risks associated with excess body weight.</string>
+    <string name="yuki_dog_photo">yuki_dog_photo</string>
+    <string name="cisek_dog_photo">cisek_dog_photo</string>
 </resources>

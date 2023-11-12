@@ -32,9 +32,7 @@ class BMIViewModel : ViewModel() {
 
     private fun determineBMICategory(bmi: Double, context: Context): String {
 
-        var category = context.getString(R.string.blank)
-
-        category = if(bmi < 18.5) {
+        val category: String = if(bmi < 18.5) {
             context.getString(R.string.underweight)
         } else if(bmi in 18.5..24.9) {
             context.getString(R.string.healthy_weight)
@@ -49,9 +47,7 @@ class BMIViewModel : ViewModel() {
 
     private fun determineCategoryColor(category: String, context: Context): Int {
 
-        var color = Color.BLACK
-
-        color = when (category) {
+        val color: Int = when (category) {
             context.getString(R.string.underweight)
             -> {
                 Color.parseColor(context.getString(R.string.BLUE))

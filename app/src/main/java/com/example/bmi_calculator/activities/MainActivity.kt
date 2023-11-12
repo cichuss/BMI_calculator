@@ -1,7 +1,7 @@
 package com.example.bmi_calculator.activities
 
-import HistoryViewModel
-import Measurement
+import com.example.bmi_calculator.viewModels.HistoryViewModel
+import com.example.bmi_calculator.viewModels.Measurement
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -174,34 +174,33 @@ class MainActivity : AppCompatActivity() {
             val weightEditText = findViewById<EditText>(R.id.Weight)
             val heightEditText = findViewById<EditText>(R.id.Height)
             val noValuesError: TextView = findViewById(R.id.error)
-
             val weightString = weightEditText.text.toString()
             val heightString = heightEditText.text.toString()
 
-                try {
-                    noValuesError.text = getString(R.string.blank)
-                    val weight = weightString.toDouble()
-                    val height = heightString.toDouble()
-                    viewModel.calculateBMI(weight, height, this)
-                    val bmi = viewModel.uiState.value.bmi
-                    if (bmi != null && bmi!= Double.POSITIVE_INFINITY) {
+            try {
+                noValuesError.text = getString(R.string.blank)
+                val weight = weightString.toDouble()
+                val height = heightString.toDouble()
+                viewModel.calculateBMI(weight, height, this)
+                val bmi = viewModel.uiState.value.bmi
+                if (bmi != null && bmi!= Double.POSITIVE_INFINITY) {
 
-                        saveToHistory(
-                            weight,
-                            height,
-                            bmi,
-                            viewModel.uiState.value.unitSystem,
-                            historyViewModel
-                        )
-                        updateTextViewsWithBMIResults(viewModel.uiState.value)
-                    }
-                    else {
-                        incorrectValues(noValuesError)
-                    }
-
-                } catch (e: NumberFormatException) {
+                    saveToHistory(
+                        weight,
+                        height,
+                        bmi,
+                        viewModel.uiState.value.unitSystem,
+                        historyViewModel
+                    )
+                    updateTextViewsWithBMIResults(viewModel.uiState.value)
+                }
+                else {
                     incorrectValues(noValuesError)
                 }
+
+            } catch (e: NumberFormatException) {
+                incorrectValues(noValuesError)
+            }
         }
     }
 

@@ -1,7 +1,7 @@
 package com.example.bmi_calculator.activities
 
 import com.example.bmi_calculator.historyUtils.HistoryAdapter
-import HistoryViewModel
+import com.example.bmi_calculator.viewModels.HistoryViewModel
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
