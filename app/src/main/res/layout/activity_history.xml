@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="156dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/history_title_width"
+        android:layout_height="@dimen/history_title_height"
         android:layout_marginTop="24dp"
         android:text="@string/history"
         android:textAlignment="center"

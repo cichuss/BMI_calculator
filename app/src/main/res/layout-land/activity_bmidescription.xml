@@ -38,8 +38,8 @@
 
     <TextView
         android:id="@+id/definitionText"
-        android:layout_width="318dp"
-        android:layout_height="116dp"
+        android:layout_width="@dimen/definition_width"
+        android:layout_height="@dimen/definition_height"
         android:layout_marginTop="12dp"
         android:text="@string/blank"
         android:textAlignment="center"
@@ -89,8 +89,8 @@
 
     <TextView
         android:id="@+id/implicationsText"
-        android:layout_width="312dp"
-        android:layout_height="116dp"
+        android:layout_width="@dimen/implications_width"
+        android:layout_height="@dimen/implications_height"
         android:text="@string/blank"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -102,8 +102,8 @@
 
     <TextView
         android:id="@+id/characteristicsText"
-        android:layout_width="312dp"
-        android:layout_height="116dp"
+        android:layout_width="@dimen/characteristics_width"
+        android:layout_height="@dimen/characteristics_height"
         android:layout_marginTop="12dp"
         android:text="@string/blank"
         android:textAlignment="center"

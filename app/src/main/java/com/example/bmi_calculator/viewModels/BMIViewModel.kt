@@ -32,7 +32,7 @@ class BMIViewModel : ViewModel() {
 
     private fun determineBMICategory(bmi: Double, context: Context): String {
 
-        var category = "ERROR"
+        var category = context.getString(R.string.blank)
 
         category = if(bmi < 18.5) {
             context.getString(R.string.underweight)
@@ -54,16 +54,16 @@ class BMIViewModel : ViewModel() {
         color = when (category) {
             context.getString(R.string.underweight)
             -> {
-                Color.parseColor("#0168e9")
+                Color.parseColor(context.getString(R.string.BLUE))
             }
             context.getString(R.string.healthy_weight) -> {
-                Color.parseColor("#30ff3d")
+                Color.parseColor(context.getString(R.string.GREEN))
             }
             context.getString(R.string.overweight) -> {
-                Color.parseColor("#ff9b65")
+                Color.parseColor(context.getString(R.string.ORANGE))
             }
             else -> {
-                Color.parseColor("#f40232")
+                Color.parseColor(context.getString(R.string.RED))
             }
         }
 
@@ -72,14 +72,9 @@ class BMIViewModel : ViewModel() {
 
     fun calculateBMI(weight: Double, height: Double, context: Context) {
 
-
-//        val weightStr = weightEditText.text.toString()
-//        val heightStr = heightEditText.text.toString()
-
-//        if (weightStr.isNotEmpty() && heightStr.isNotEmpty()) {
-        val weight = unitSystem.convertWeight(weight)
-        val height = unitSystem.convertHeight(height)
-        val bmi = calculateBMIValue(weight, height)
+        val convertedWeight = unitSystem.convertWeight(weight)
+        val convertedHeight = unitSystem.convertHeight(height)
+        val bmi = calculateBMIValue(convertedWeight, convertedHeight)
         val category = determineBMICategory(bmi, context)
         val color = determineCategoryColor(category, context)
 
