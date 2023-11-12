@@ -179,12 +179,12 @@ class MainActivity : AppCompatActivity() {
             val heightString = heightEditText.text.toString()
 
                 try {
-                    noValuesError.text = ""
+                    noValuesError.text = getString(R.string.blank)
                     val weight = weightString.toDouble()
                     val height = heightString.toDouble()
                     viewModel.calculateBMI(weight, height, this)
                     val bmi = viewModel.uiState.value.bmi
-                    if (bmi != null) {
+                    if (bmi != null && bmi!= Double.POSITIVE_INFINITY) {
 
                         saveToHistory(
                             weight,
@@ -193,14 +193,22 @@ class MainActivity : AppCompatActivity() {
                             viewModel.uiState.value.unitSystem,
                             historyViewModel
                         )
+                        updateTextViewsWithBMIResults(viewModel.uiState.value)
                     }
-                    updateTextViewsWithBMIResults(viewModel.uiState.value)
+                    else {
+                        incorrectValues(noValuesError)
+                    }
+
                 } catch (e: NumberFormatException) {
-                    clearTextViews()
-                    noValuesError.text = getString(R.string.error_incorrect_values)
-                    noValuesError.setTextColor(Color.RED)
+                    incorrectValues(noValuesError)
                 }
         }
+    }
+
+    private fun incorrectValues(noValuesError: TextView) {
+        clearTextViews()
+        noValuesError.text = getString(R.string.error_incorrect_values)
+        noValuesError.setTextColor(Color.RED)
     }
 
     private fun saveToHistory(weight: Double, height: Double, bmi: Double, unitSystem: String, historyViewModel: HistoryViewModel) {
