@@ -27,7 +27,7 @@ class BMIViewModel : ViewModel() {
 
 
     private fun calculateBMIValue(weight: Double, height: Double): Double {
-        return weight / sqrt(height)
+        return weight / (height/100 * height/100)
     }
 
     private fun determineBMICategory(bmi: Double, context: Context): String {
@@ -85,6 +85,14 @@ class BMIViewModel : ViewModel() {
                 )
         }
 
+    }
+
+    fun updateUnits(unitString: String) {
+        _uiState.update { currentState: BMIViewModelUiState ->
+            currentState.copy(
+                unitSystem = unitString,
+            )
+        }
     }
 }
 
