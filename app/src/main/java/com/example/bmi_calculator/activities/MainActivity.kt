@@ -22,6 +22,7 @@ import com.example.bmi_calculator.units.BMIMetricUnits
 import com.example.bmi_calculator.viewModels.BMIViewModel
 import com.example.bmi_calculator.viewModels.BMIViewModelUiState
 import com.google.android.material.navigation.NavigationView
+import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        AndroidThreeTen.init(this);
         val viewModel: BMIViewModel by viewModels()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
