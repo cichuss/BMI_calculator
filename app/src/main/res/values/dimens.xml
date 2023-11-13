@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="switch_width">163dp</dimen>
+    <dimen name="switch_height">43dp</dimen>
+    <dimen name="burger_width">66dp</dimen>
+    <dimen name="burger_height">59dp</dimen>
+    <dimen name="category_width">99dp</dimen>
+    <dimen name="category_height">40dp</dimen>
+    <dimen name="history_title_width">156dp</dimen>
+    <dimen name="history_title_height">56dp</dimen>
+    <dimen name="definition_width">318dp</dimen>
+    <dimen name="definition_height">116dp</dimen>
+    <dimen name="implications_width">312dp</dimen>
+    <dimen name="implications_height">116dp</dimen>
+    <dimen name="characteristics_width">312dp</dimen>
+    <dimen name="characteristics_height">116dp</dimen>
+    <dimen name="author_description_width">331dp</dimen>
+    <dimen name="author_description_height">170dp</dimen>
+    <dimen name="image_width">142dp</dimen>
+    <dimen name="image_height">182dp</dimen>
+    <dimen name="image_placement_margin_top">44dp</dimen>
+</resources>
