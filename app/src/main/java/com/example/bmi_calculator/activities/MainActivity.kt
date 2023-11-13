@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        AndroidThreeTen.init(this);
+
         val viewModel: BMIViewModel by viewModels()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -47,23 +47,18 @@ class MainActivity : AppCompatActivity() {
                     var category = uiState.category
                     var color = uiState.color
                     var unitSystem = uiState.unitSystem
-                    if(viewModel.uiState.value.bmi != null) {
-                        updateTextViewsWithBMIResults(viewModel.uiState.value)
-                    }
                 }
             }
         }
 
         val historyViewModel: HistoryViewModel by viewModels()
 
-        if(viewModel.uiState.value.bmi != null) {
-            updateTextViewsWithBMIResults(viewModel.uiState.value)
-        }
         calculateButton(viewModel, historyViewModel)
         burgerMenu()
         navigation()
         unitSwitch(viewModel)
         clickOnCategory()
+        updateTextViewsWithBMIResults(viewModel.uiState.value)
         }
 
     private fun updateTextViewsWithBMIResults(uiState: BMIViewModelUiState) {
@@ -71,9 +66,17 @@ class MainActivity : AppCompatActivity() {
         val resultValueTextView = findViewById<TextView>(R.id.Bmi)
         val resultCategoryTextView = findViewById<TextView>(R.id.categoryText)
 
-        resultValueTextView.text = String.format(getString(R.string.bmi_formatted), uiState.bmi)
-        resultCategoryTextView.setTextColor(uiState.color)
-        resultCategoryTextView.text = uiState.category
+        if(uiState.bmi != null) {
+            resultValueTextView.text = String.format(getString(R.string.bmi_formatted), uiState.bmi)
+            resultCategoryTextView.setTextColor(uiState.color)
+            resultCategoryTextView.text = uiState.category
+        }
+
+        if (uiState.unitSystem == getString(R.string.imperial)) {
+            findViewById<EditText>(R.id.Weight).hint = getString(R.string.weight_lb)
+            findViewById<EditText>(R.id.Height).hint = getString(R.string.height_in)
+            unitSwitch.text = getString(R.string.imperial_units)
+        }
     }
 
     private fun clearTextViews() {
@@ -95,17 +98,21 @@ class MainActivity : AppCompatActivity() {
         unitSwitch.setOnCheckedChangeListener { _, isChecked ->
             val unitSystem = viewModel.uiState.value.unitSystem
             if (isChecked && unitSystem != getString(R.string.imperial)) {
-                clearTextViews()
+
                 findViewById<EditText>(R.id.Weight).hint = getString(R.string.weight_lb)
                 findViewById<EditText>(R.id.Height).hint = getString(R.string.height_in)
                 viewModel.unitSystem = BMIImperialUnits()
                 unitSwitch.text = getString(R.string.imperial_units)
-            } else if (!isChecked && unitSystem != getString(R.string.metric)){
+                viewModel.updateUnits(getString(R.string.imperial))
                 clearTextViews()
+            } else if (!isChecked && unitSystem != getString(R.string.metric)){
+
                 findViewById<EditText>(R.id.Weight).hint = getString(R.string.weight_kg)
                 findViewById<EditText>(R.id.Height).hint = getString(R.string.height_cm)
                 viewModel.unitSystem = BMIMetricUnits()
                 unitSwitch.text = getString(R.string.metric_units)
+                viewModel.updateUnits(getString(R.string.metric))
+                clearTextViews()
             }
         }
     }
@@ -212,6 +219,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveToHistory(weight: Double, height: Double, bmi: Double, unitSystem: String, historyViewModel: HistoryViewModel) {
+        AndroidThreeTen.init(this)
         val bmiFormatted = String.format(getString(R.string.format), bmi)
         val currentDateTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_formatter))

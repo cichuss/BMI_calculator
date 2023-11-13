@@ -86,6 +86,14 @@ class BMIViewModel : ViewModel() {
         }
 
     }
+
+    fun updateUnits(unitString: String) {
+        _uiState.update { currentState: BMIViewModelUiState ->
+            currentState.copy(
+                unitSystem = unitString,
+            )
+        }
+    }
 }
 
 
